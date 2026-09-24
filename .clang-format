@@ -1,0 +1,62 @@
+Language: Cpp
+
+# Base Style
+BasedOnStyle: Google
+
+# Identation
+IdentWidth: 4
+tabWidth: 4
+UseTab: Never
+ContinuationIdentWidth: 4
+IdentCaseLabels: true
+IdentPPDirectives: AfterHash
+
+# Line width
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+
+# Alignment
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+AlignOperands: true
+AlignTrailingComments: true
+
+# Pointers and references
+PointerAlignment: Left
+DerivePointerAlignment: false
+
+# Spaces
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInAngles: false
+SpacesInContainerLiterals: true
+SpacesBeforeTrailingComments: 2
+
+# Includes
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+  - Regex:           '^<.*'
+    Priority:        2
+  - Regex:           '.*'
+    Priority:        3
+
+# Constructors
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIdentWidth: 4
+PackConstructorInitializers: Never
+
+# Misc
+MaxEmptyLinesToKeep: 1
+KeepEmptyLinesAtTheStartOfBlocks: false
+ReflowComments: true
