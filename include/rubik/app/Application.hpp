@@ -2,7 +2,9 @@
 
 #include "rubik/render/Renderer.hpp"
 #include "rubik/render/Window.hpp"
-
+#include "rubik/render/Camera.hpp"
+#include "rubik/render/Mesh.hpp"
+#include "rubik/render/Shader.hpp"
 #include <memory>
 
 namespace rubik::app {
@@ -25,7 +27,13 @@ public:
 private:
     /// Processes input for the current frame (ESC to quit, etc.).
     void processInput();
+
+    void createDemoGeometry();
+
     std::unique_ptr<render::Window> window_;
     std::unique_ptr<render::Renderer> renderer_;
+    std::unique_ptr<render::Shader> shader_;
+    std::unique_ptr<render::Mesh> mesh_;
+    render::Camera camera_;
 };
 }

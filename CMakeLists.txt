@@ -115,6 +115,9 @@ add_executable(rubik-cube
     src/app/Application.cpp
     src/render/Window.cpp
     src/render/Renderer.cpp
+    src/render/Shader.cpp
+    src/render/Mesh.cpp
+    src/render/Camera.cpp
 )
 
 # Include directories
