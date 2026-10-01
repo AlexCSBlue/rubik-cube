@@ -72,4 +72,23 @@ namespace rubik::render {
 
         position_ = target_ + offset;
     }
+
+    void Camera::zoom(float delta) noexcept{
+        glm::vec3 offset = position_ - target_;
+        float radius = glm::length(offset);
+
+        radius += delta;
+
+        constexpr float kMinRadius = 1.0f;
+        constexpr float kMaxRadius = 50.0f;
+
+        if(radius < kMinRadius){
+            radius = kMinRadius;
+        } else if(radius > kMaxRadius){
+            radius = kMaxRadius;
+        }
+
+        glm::vec3 direction = glm::normalize(offset);
+        position_ = target_ + direction * radius;
+    }
 }

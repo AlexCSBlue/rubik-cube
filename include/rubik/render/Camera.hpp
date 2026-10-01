@@ -35,12 +35,11 @@ namespace rubik::render {
             [[nodiscard]] float nearPlane() const noexcept { return nearPlane_; }
             [[nodiscard]] float farPlane() const noexcept { return farPlane_; }
 
-            void translate(const glm::vec3& offset) noexcept {
-                position_ += offset;
-                target_ += offset;
-            }
+            void translate(const glm::vec3& offset) noexcept { position_ += offset; target_ += offset; };
 
             void orbit(float yawDegrees, float pitchDegrees) noexcept;
+
+            void zoom (float delta) noexcept;
 
         private:
             glm::vec3 position_{0.0f, 0.0f, 5.0f};

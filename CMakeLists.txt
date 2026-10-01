@@ -113,11 +113,14 @@ add_subdirectory(cmake)
 add_executable(rubik-cube
     src/main.cpp
     src/app/Application.cpp
+    src/core/Cube.cpp
+    src/core/RubiksCube.cpp
     src/render/Window.cpp
     src/render/Renderer.cpp
     src/render/Shader.cpp
     src/render/Mesh.cpp
     src/render/Camera.cpp
+    src/core/Cube.cpp
 )
 
 # Include directories

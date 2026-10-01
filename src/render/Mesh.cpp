@@ -93,7 +93,7 @@ namespace rubik::render {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
 
         glBufferData(
-            GL_ARRAY_BUFFER,
+            GL_ELEMENT_ARRAY_BUFFER,
             static_cast<GLsizeiptr>(indices.size() * sizeof(std::uint32_t)),
             indices.data(),
             GL_STATIC_DRAW

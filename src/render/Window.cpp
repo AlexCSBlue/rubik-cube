@@ -11,6 +11,15 @@ namespace {
 void glfwErrorCallBack(int error, const char *description) {
   std::cerr << "[GLFW Error " << error << "] " << description << '\n';
 }
+
+Window::RefreshCallback refreshCallback = nullptr;
+
+void glfwRefreshCallback(GLFWwindow *window) {
+    if(refreshCallback) {
+        refreshCallback();
+    }
+}
+
 } // namespace
 
 Window::Window(int width, int height, const char *title) {
@@ -36,13 +45,32 @@ Window::Window(int width, int height, const char *title) {
 
 
   // Create the window
-  window_ = glfwCreateWindow(width, height, title, nullptr, nullptr);
-  if (!window_) {
-    glfwTerminate();
-    throw std::runtime_error("Failed to create GLFW window");
-  }
+  GLFWmonitor* primaryMonitor = glfwGetPrimaryMonitor();
+    if (!primaryMonitor) {
+        glfwTerminate();
+        throw std::runtime_error("Failed to get primary monitor");
+    }
+
+    int monitorX = 0;
+    int monitorY = 0;
+    int monitorWidth = 0;
+    int monitorHeight = 0;
+    glfwGetMonitorWorkarea(primaryMonitor, &monitorX, &monitorY, &monitorWidth, &monitorHeight);
+
+    const int centeredX = monitorX + (monitorWidth - width) / 2;
+    const int centeredY = monitorY + (monitorHeight - height) / 2;
+
+    window_ = glfwCreateWindow(width, height, title, nullptr, nullptr);
+    if (!window_) {
+        glfwTerminate();
+        throw std::runtime_error("Failed to create GLFW window");
+    }
+
+    glfwSetWindowPos(window_, centeredX, centeredY);
 
   glfwMakeContextCurrent(window_);
+
+  glfwSetWindowRefreshCallback(window_, glfwRefreshCallback);
 
   // Make the OpenGL context current on this thread
   glfwSwapInterval(1);
@@ -50,6 +78,8 @@ Window::Window(int width, int height, const char *title) {
   // Enable V-Sync  (caps framerate to monitor refresh)
   std::cout << "[Window] Created" << width << 'x' << height
             << " w                  indow titled \"" << title << "\"\n";
+
+
 }
 
 Window::~Window() {
@@ -67,5 +97,8 @@ bool Window::shouldClose() const noexcept {
 void Window::pollEvents() const noexcept { glfwPollEvents(); }
 
 void Window::swapBuffers() const noexcept { glfwSwapBuffers(window_); }
-} // namespace rubik::render
 
+void Window::setRefreshCallback(RefreshCallback callback) noexcept {
+    refreshCallback = callback;
+}
+}

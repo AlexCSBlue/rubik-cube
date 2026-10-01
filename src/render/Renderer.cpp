@@ -23,6 +23,12 @@ Renderer::Renderer() {
     vendor_      = reinterpret_cast<const char*>(glGetString(GL_VENDOR));
     glslVersion_ = reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION));
 
+    glEnable(GL_DEPTH_TEST);
+
+    //glEnable(GL_CULL_FACE);
+    //glCullFace(GL_BACK);
+    //glFrontFace(GL_CCW);
+
     // ─── 3. Print to console ───
     std::cout << "\n";
     std::cout << "========================================================\n";
@@ -41,7 +47,7 @@ void Renderer::setClearColor(float r, float g, float b, float a) const noexcept 
 }
 
 void Renderer::clear() const noexcept {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 const char* Renderer::glVersion() const noexcept {

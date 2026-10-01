@@ -26,6 +26,9 @@ public:
   // Swaps the front and back framebuffers
   void swapBuffers() const noexcept;
 
+  using RefreshCallback = void(*)();
+  void setRefreshCallback(RefreshCallback callback) noexcept;
+
   // @return Raw GLFW window handle (for advanced use cases)
   [[nodiscard]] GLFWwindow *nativeHandle() const noexcept { return window_; }
 
